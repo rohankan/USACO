@@ -1,6 +1,5 @@
 #include <queue>
 
-bool visited[100000];
 int in_degrees[100000];
 int ordering[100000];
 vector<int> paths[100000];
@@ -8,7 +7,6 @@ vector<int> paths[100000];
 bool topological_sort(int n) { // Returns whether topological sort is possible.
     memset(ordering, -1, n);
     memset(in_degrees, 0, n);
-    memset(visited, false, n);
     
     for (int i = 0; i < n; i++) {
         for (auto p : paths[i]) {
