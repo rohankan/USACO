@@ -30,7 +30,7 @@
 #define forval(val, n) for(int val = 0; val < n; val++)
 #define forirev(n) for(int i = n-1; i > -1; i--)
 #define forvalrev(val, n) for(int val = n-1; val > -1; val--)
-#define bigval 100000000
+#define bigval 1000000000
 using namespace std;
 
 typedef pair<int, int> ipair;
