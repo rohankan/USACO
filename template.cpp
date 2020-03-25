@@ -35,6 +35,7 @@ using namespace std;
 
 typedef pair<int, int> ipair;
 typedef pair<double, double> dpair;
+typedef pair<int, pair<int, int>> tripair;
 
 void set_IO(string name) {
     ios_base::sync_with_stdio(0); cin.tie(0);
