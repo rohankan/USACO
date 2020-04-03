@@ -2,6 +2,8 @@
 *.d
 
 testfiles/
+asdfasdf.cpp
+asdfasdf2.cpp
 
 # Compiled Object files
 *.slo
