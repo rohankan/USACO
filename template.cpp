@@ -27,15 +27,31 @@
 #define fori(n) for(int i = 0; i < n; i++) 
 #define forj(n) for(int j = 0; j < n; j++) 
 #define fork(n) for(int k = 0; k < n; k++) 
-#define forval(val, n) for(int val = 0; val < n; val++)
-#define forirev(n) for(int i = n-1; i > -1; i--)
-#define forvalrev(val, n) for(int val = n-1; val > -1; val--)
+#define rev(val, stop) for (int (val) = (stop); val >= 0; val--)
+#define f0r(val, start, stop) for(int (val) = (start); (val) < (stop); val++)
 #define bigval 1000000000
 using namespace std;
 
 typedef pair<int, int> ipair;
 typedef pair<double, double> dpair;
 typedef pair<int, pair<int, int>> tripair;
+
+struct custom_hash {
+    static uint64_t splitmix64(uint64_t x) {
+        // http://xorshift.di.unimi.it/splitmix64.c
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
+    
+    size_t operator()(uint64_t x) const {
+        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x + FIXED_RANDOM);
+    }
+};
+
+//unordered_set<int, custom_hash> s;
 
 void set_IO(string name) {
     ios_base::sync_with_stdio(0); cin.tie(0);
