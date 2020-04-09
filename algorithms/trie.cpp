@@ -1,3 +1,4 @@
+// Trie implementation without path compression. Replace unordered_map with char->int array if needed.
 
 const int TRIECHARMAX = 26;
 
@@ -5,44 +6,62 @@ int charkey(char c) {
     return c-'A';
 }
 
+
 struct Node {
     string s;
     int total;
-    Node* children[TRIECHARMAX];
+    unordered_map<char, Node*> children;
     
     Node(string val) {
         s = val;
-        for (int i = 0; i < TRIECHARMAX; i++) {
-            children[i] = nullptr;
-        }
-        total = val.empty() ? 0 : 1;
+        total = 0;
     }
     
-    void insert(string& val, int i) {
-        if (i == val.size()) {
-            return; // already inserted.
+    void insert(string val) {
+        if (val.size() == 0) {
+            total++;
+            return;
         }
         
-        total++;
+        char c = val.at(0);
         
-        int idx = charkey(val.at(i));
+        if (!contains(c)) {
+            children[c] = new Node(val.substr(0, 1));
+        } 
         
-        if (!contains(idx)) {
-            children[idx] = new Node(val);
-            
-            if (s.size() > 1) {
-                string split = s.substr(1, s.size()-1);
-                children[split[0]-'A'] = new Node(split);
+        children[c]->insert(val.substr(1));
+    }
+    
+    Node* find(string s) { // does not account for when the string is not in the trie.
+        Node* cur = this;
+        int n = (int) s.size();
+        
+        for (int i = 0; i < n; i++) {
+            cur = cur->children[s[0]];
+            if (cur->s == s) {
+                return cur;
             }
-        } else {
-            children[idx]->insert(val, i+1);
+            s = s.substr(1);
         }
+        return nullptr;
     }
     
-    bool contains(int c) {
-        return children[c] != nullptr;
+    bool contains(char c) {
+        return children.find(c) != children.end();
     }
 };
 
 Node trie("");
 
+void printtrie(Node* n, int depth) {
+    if (depth > 0) {
+        for (int i = 0; i < depth-1; i++) {
+            cout << " ";
+        }
+        cout << n->s << " " << n->total << endl;
+    }
+    
+    for (auto it = n->children.begin(); it != n->children.end(); it++) {
+        printtrie(it->second, depth+1);
+    }
+}
