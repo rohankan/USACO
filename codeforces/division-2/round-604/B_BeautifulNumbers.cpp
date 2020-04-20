@@ -1,11 +1,5 @@
-/*
- ID: rohanka3
- PROG: circlecross
- LANG: C++11
- */
-
 #include <iostream>
-#include <iomanip> 
+#include <iomanip>
 #include <algorithm>
 #include <fstream>
 #include <vector>
@@ -16,6 +10,7 @@
 #include <unordered_set>
 #include <numeric>
 #include <math.h>
+#include <chrono>
 #include <map>
 #include <unordered_map>
 #include <list>
@@ -24,9 +19,9 @@
 #include <utility>
 #include <array>
 #include <bitset>
-#define fori(n) for(int i = 0; i < n; i++) 
-#define forj(n) for(int j = 0; j < n; j++) 
-#define fork(n) for(int k = 0; k < n; k++) 
+#define fori(n) for(int i = 0; i < n; i++)
+#define forj(n) for(int j = 0; j < n; j++)
+#define fork(n) for(int k = 0; k < n; k++)
 #define rev(val, stop) for (int (val) = (stop); val >= 0; val--)
 #define f0r(val, start, stop) for(int (val) = (start); (val) < (stop); val++)
 #define bigval 1000000000
@@ -44,7 +39,7 @@ struct custom_hash {
         x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
         return x ^ (x >> 31);
     }
-    
+
     size_t operator()(uint64_t x) const {
         static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
         return splitmix64(x + FIXED_RANDOM);
@@ -56,7 +51,7 @@ struct pair_hash {
     std::size_t operator () (std::pair<T1, T2> const &pair) const {
         std::size_t h1 = std::hash<T1>()(pair.first);
         std::size_t h2 = std::hash<T2>()(pair.second);
-        
+
         return h1 ^ h2;
     }
 };
@@ -76,8 +71,38 @@ void set_IO(string name) {
     freopen((name+".out").c_str(), "w", stdout);
 }
 
+int mapping[200000];
+int arr[200000];
+
+void solve() {
+    int n; 
+    cin >> n;
+
+    fori(n) {cin >> arr[i]; mapping[arr[i]] = i;};
+
+    int l = bigval;
+    int r = -1;
+
+    f0r(i, 1, n+1) {
+        l = min(l, mapping[i]);
+        r = max(r, mapping[i]);
+
+        if (r-l+1 == i) 
+            cout << 1;
+        else 
+            cout << 0;
+    }
+
+    cout << '\n';
+}
+
 int main() {
-    
+    int t;
+    cin >> t;
+    fori(t) {
+        solve();
+    }
     return 0;
 }
+
 

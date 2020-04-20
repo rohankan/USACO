@@ -1,12 +1,7 @@
-/*
- ID: rohanka3
- PROG: circlecross
- LANG: C++11
- */
-
 #include <iostream>
-#include <iomanip> 
+#include <iomanip>
 #include <algorithm>
+#include <chrono>
 #include <fstream>
 #include <vector>
 #include <deque>
@@ -24,9 +19,9 @@
 #include <utility>
 #include <array>
 #include <bitset>
-#define fori(n) for(int i = 0; i < n; i++) 
-#define forj(n) for(int j = 0; j < n; j++) 
-#define fork(n) for(int k = 0; k < n; k++) 
+#define fori(n) for(int i = 0; i < n; i++)
+#define forj(n) for(int j = 0; j < n; j++)
+#define fork(n) for(int k = 0; k < n; k++)
 #define rev(val, stop) for (int (val) = (stop); val >= 0; val--)
 #define f0r(val, start, stop) for(int (val) = (start); (val) < (stop); val++)
 #define bigval 1000000000
@@ -64,11 +59,11 @@ struct pair_hash {
 //unordered_set<int, custom_hash> s;
 
 /*
-CIN INPUT:
-<start>
-
-<end>
-*/
+ CIN INPUT:
+ <start>
+ 
+ <end>
+ */
 
 void set_IO(string name) {
     ios_base::sync_with_stdio(0); cin.tie(0);
@@ -76,8 +71,58 @@ void set_IO(string name) {
     freopen((name+".out").c_str(), "w", stdout);
 }
 
-int main() {
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> partitions;
+    int cur = -1;
     
+    fori(n/2+1) {
+        int a;
+        cin >> a;
+        
+        if (cur == -1) {
+            cur = a; 
+        } else if (a != cur) {
+            partitions.push_back(i-1);
+            cur = a;
+        }     
+    }
+    
+    f0r(i, n/2+1, n) {
+        int a;
+        cin >> a;
+    }
+    
+//    cout << "newone: " << partitions.size() << ' ' << n <<  endl;
+    
+    if (partitions.size() == 0) {
+        cout << "0 0 0\n";
+        return;
+    }
+    
+    int g = partitions[0] + 1;
+    int total = partitions.back() - g + 1;
+    f0r(i, 1, partitions.size()) {
+        int s = partitions[i] - g + 1;
+//        cout << partitions[i-1] << ' ' << partitions[i] << ' ' << total << ' ' << s << endl;
+        if (g < s && g < (total-s)) {
+            cout << g << ' ' << s << ' ' << (total-s) << '\n';
+            return;
+        }
+    }
+    
+    cout << "0 0 0\n";
+}
+
+int main() {
+    int t;
+    cin >> t;
+    fori(t) {
+        solve();
+    }
     return 0;
 }
+
+
 

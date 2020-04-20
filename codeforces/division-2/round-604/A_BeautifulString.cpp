@@ -1,9 +1,3 @@
-/*
- ID: rohanka3
- PROG: circlecross
- LANG: C++11
- */
-
 #include <iostream>
 #include <iomanip> 
 #include <algorithm>
@@ -17,19 +11,20 @@
 #include <numeric>
 #include <math.h>
 #include <map>
+#include <string.h>
 #include <unordered_map>
 #include <list>
 #include <string>
-#include <string.h>
+#include <chrono>
 #include <utility>
 #include <array>
 #include <bitset>
 #define fori(n) for(int i = 0; i < n; i++) 
 #define forj(n) for(int j = 0; j < n; j++) 
 #define fork(n) for(int k = 0; k < n; k++) 
-#define rev(val, stop) for (int (val) = (stop); val >= 0; val--)
+#define rev(val, stop) for (int (val) = (int) (stop); val >= 0; val--)
 #define f0r(val, start, stop) for(int (val) = (start); (val) < (stop); val++)
-#define bigval 1000000000
+
 using namespace std;
 
 typedef pair<int, int> ipair;
@@ -70,13 +65,53 @@ CIN INPUT:
 <end>
 */
 
-void set_IO(string name) {
-    ios_base::sync_with_stdio(0); cin.tie(0);
-    freopen((name+".in").c_str(), "r", stdin);
-    freopen((name+".out").c_str(), "w", stdout);
+void solve() {
+    string s;
+    cin >> s;
+
+//    cout << "yo" << endl;
+
+    fori(s.size()) {
+        bool good[3];
+        // cout << i << ' ' << s[i] << '\n'; 
+        forj(3) {
+            good[j] = false;
+        } 
+        if (i-1 >= 0 && s[i-1] != '?') {
+            good[s[i-1]-'a'] = true;
+        }
+        if (i+1 < s.size() && s[i+1] != '?') {
+            good[s[i+1]-'a'] = true;
+        } 
+
+        forj(3) {
+            if (good[j] && s[i]-'a' == j) {
+                cout << -1 << '\n';
+                return;
+            } else if (s[i] == '?' && !good[j]) {
+                s[i] = (char) ((int)('a') + j); 
+            }
+        }
+    }
+
+    cout << s << '\n'; 
 }
 
 int main() {
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    
+    int t;
+    cin >> t;
+    for (int i = 0; i < t; i++) {
+//        cout << "Case #" << i+1 << ": ";
+        solve();
+//        int cor;
+//        cin >> cor; 
+//        
+//        if (cor == -1) {
+//            break;
+//        }
+    }
     
     return 0;
 }
