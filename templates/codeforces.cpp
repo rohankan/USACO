@@ -1,9 +1,3 @@
-/*
- ID: rohanka3
- PROG: circlecross
- LANG: C++11
- */
-
 #include <iostream>
 #include <iomanip> 
 #include <algorithm>
@@ -63,21 +57,21 @@ struct pair_hash {
 
 //unordered_set<int, custom_hash> s;
 
-/*
-CIN INPUT:
-<start>
-
-<end>
-*/
-
-void set_IO(string name) {
-    ios_base::sync_with_stdio(0); cin.tie(0);
-    freopen((name+".in").c_str(), "r", stdin);
-    freopen((name+".out").c_str(), "w", stdout);
+void solve() {
+    
 }
 
 int main() {
+    ios_base::sync_with_stdio(0); cin.tie(NULL);
+    
+    int t;
+    cin >> t;
+    for (int i = 0; i < t; i++) {
+        cout << "Case #" << i+1 << ": ";
+        solve();
+    }
     
     return 0;
 }
+
 
